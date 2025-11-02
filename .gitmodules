@@ -1,0 +1,6 @@
+[submodule "roosnam-backend"]
+	path = roosnam-backend
+	url = git@github.com:rebase-master/roosnam-backend.git
+[submodule "roosnam-frontend"]
+	path = roosnam-frontend
+	url = git@github.com:rebase-master/roosnam-frontend.git
