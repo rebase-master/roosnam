@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./roosnam-backend
+    image: roosnam-backend:dev
+    container_name: roosnam-backend
+    ports:
+      - "3000:80"   # Host:Container (backend config listens on 80 inside container)
+    environment:
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: "1"
+      BUNDLE_WITHOUT: "" 
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
+    volumes:
+      - ./roosnam-backend:/rails
+      - roosnam-backend-storage:/rails/storage
+    entrypoint: ["/rails/entrypoint.sh"]
+    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "80"]
+
+  frontend:
+    build:
+      context: ./roosnam-frontend
+    image: roosnam-frontend:dev
+    container_name: roosnam-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://backend:80/api/v1}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3001}
+    volumes:
+      - ./roosnam-frontend:/app
+      - /app/node_modules
+    command: ["npm", "run", "dev", "--", "-H", "0.0.0.0", "-p", "3001"]
+
+volumes:
+  roosnam-backend-storage:
