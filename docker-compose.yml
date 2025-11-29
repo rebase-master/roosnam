@@ -11,7 +11,7 @@ services:
     environment:
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "1"
-      BUNDLE_WITHOUT: "" 
+      BUNDLE_WITHOUT: ""
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
     volumes:
       - ./roosnam-backend:/rails

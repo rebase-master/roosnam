@@ -152,9 +152,68 @@ Frontend environment examples (.env.local)
 ```
 NEXT_PUBLIC_API_URL=http://localhost:3000/api/v1
 NEXT_PUBLIC_SITE_URL=http://localhost:3001
+NEXT_PUBLIC_SHOW_MOCK_DATA=true
 ```
 
 Place actual secrets (RAILS_MASTER_KEY, SECRET_KEY_BASE, ADMIN_PASSWORD if used by seeds) in a `.env` file or your deployment secrets store and do not commit them.
+
+---
+
+## Mock Data Mode
+
+The frontend includes a **mock data mode** that allows you to preview the portfolio with sample data without needing the backend API running. This is useful for:
+
+- **Demo purposes**: Showcase the portfolio design without setting up the full backend
+- **Frontend development**: Work on UI components without backend dependencies
+- **Quick previews**: Test the site layout before populating real data
+
+### How it works
+
+The `NEXT_PUBLIC_SHOW_MOCK_DATA` environment variable controls data sourcing:
+
+| Value | Behavior |
+|-------|----------|
+| `true` (default) | Uses mock data from `lib/mockData.js`. No API calls are made. |
+| `false` | Fetches all data from the Rails API. Requires backend to be running. |
+
+### Setting the flag
+
+**Via `.env.local` (recommended for local development):**
+```bash
+# In roosnam-frontend/.env.local
+NEXT_PUBLIC_SHOW_MOCK_DATA=true   # Use mock data
+NEXT_PUBLIC_SHOW_MOCK_DATA=false  # Use real API data
+```
+
+**Via Docker Compose:**
+
+The `roosnam-frontend/docker-compose.yml` includes this setting:
+```yaml
+environment:
+  NEXT_PUBLIC_SHOW_MOCK_DATA: ${NEXT_PUBLIC_SHOW_MOCK_DATA:-false}
+```
+
+Override via command line:
+```bash
+NEXT_PUBLIC_SHOW_MOCK_DATA=true docker-compose up
+```
+
+### What's included in mock data
+
+When mock data mode is enabled, the frontend displays sample data for:
+- Profile information (name, bio, headline, location, social links)
+- Work experiences (7 positions at real company names)
+- Skills (categorized: Languages, Frameworks, Databases, Cloud & DevOps, ML/AI, etc.)
+- Client projects (12 sample projects with descriptions and tech stacks)
+- Client testimonials/reviews
+- Education and certifications
+- Blog posts (sample articles)
+
+### Important notes
+
+- When `NEXT_PUBLIC_SHOW_MOCK_DATA=false`, **all data comes from the API**. If the API returns empty results, the frontend shows appropriate empty states.
+- The mock data is defined in `roosnam-frontend/lib/mockData.js` and can be customized.
+- Profile photos only display if the API returns a `profile_photo_url` or if mock data mode is enabled (uses a default image).
 
 --- 
 
@@ -178,7 +237,7 @@ Place actual secrets (RAILS_MASTER_KEY, SECRET_KEY_BASE, ADMIN_PASSWORD if used 
 
 --- 
 
-##LICENSE
+## LICENSE
 
 ### MIT License
 
