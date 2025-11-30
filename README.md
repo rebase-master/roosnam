@@ -1,6 +1,27 @@
 # Roosnam — Portfolio Platform
 
+> A full-stack, single-user portfolio platform built with Rails 8.1 and Next.js
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/rebase-master/roosnam?include_prereleases)](https://github.com/rebase-master/roosnam/releases)
+[![Docker Ready](https://img.shields.io/badge/Docker-Ready-blue.svg?logo=docker)](https://docs.docker.com/compose/)
+[![Rails](https://img.shields.io/badge/Rails-8.1-red.svg?logo=rubyonrails)](https://rubyonrails.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black.svg?logo=next.js)](https://nextjs.org/)
+
+---
+
+## Screenshot
+
+![Roosnam Homepage](Screenshots/01-home.png)
+
+*Homepage showcasing the portfolio with profile information, skills preview, and featured projects*
+
+---
+
+## About
 Roosnam is a full-stack, single-user portfolio platform built with Rails 8.1 (API backend) and Next.js (frontend). This README is for the parent repository and includes local + Docker usage, plus explicit steps to create the single admin/portfolio user via the Rails console running inside Docker.
+
+--- 
 
 ## Architecture overview
 
